@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RoomRates</string>
+    <string name="action_settings">Settings</string>
+    <string name="hint_search_property">Search a property</string>
+</resources>
