@@ -28,10 +28,10 @@ public class PresenterImpl extends BasePresenter implements Presenter, Interacto
     private SearchInteractor interactor;
     private String query;
 
-    public PresenterImpl(ViewOps view) {
+    public PresenterImpl(ViewOps view, SearchInteractor interactor) {
         Log.i(TAG, "PresenterImpl: ");
         this.view = view;
-//        this.interactor = interactor;
+        this.interactor = interactor;
     }
 
     /**
@@ -47,11 +47,11 @@ public class PresenterImpl extends BasePresenter implements Presenter, Interacto
 
     /**
      * Return Result from Subscriber in interactor
-     * @return
+     * @return query
      */
     @Override
     public String getQuery() {
-        Log.i(TAG, "getQuery: ");
+        Log.i(TAG, "getQuery: " + query);
         //TODO return value from interactor ops
         return query;
     }
@@ -65,16 +65,14 @@ public class PresenterImpl extends BasePresenter implements Presenter, Interacto
         //TODO interactor subscribe to observable
 //        wrEtSearch = new WeakReference<EditText>(editText);
         etSearch = editText;
+        interactor.subscribeToEditText(editText, this);
     }
 
-    @Override
-    public void setInteractor(SearchInteractor interactor) {
-        this.interactor = interactor;
-    }
+
 
     /**
      * Tell the View its time to update the map
-     * @param latLng
+     * @param latLng SearchInteractor return this value
      */
     @Override
     public void updateLocation(LatLng latLng) {
@@ -82,14 +80,19 @@ public class PresenterImpl extends BasePresenter implements Presenter, Interacto
         view.showPropertyInMap(latLng);
     }
 
+    /**
+     * Receive the query from the Observer in SearchInteractor and keep in in a variable to
+     * send it back to the click search button in SearchFragment
+     * @param query
+     */
     @Override
-    public void getQueryFromSubscriber(String query) {
-        //TODO pass the query to SearchFragment to prepare the query when the user press button to search
-        this.query = query;
+    public void getQueryFromObserver(CharSequence query) {
+        this.query = query.toString();
     }
 
     @Override
     public void onDestroyView() {
+        interactor.unsubscribe();
         ButterKnife.unbind(etSearch);
     }
 }

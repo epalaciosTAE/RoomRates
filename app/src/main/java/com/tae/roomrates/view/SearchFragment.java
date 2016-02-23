@@ -16,6 +16,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.tae.roomrates.App;
+import com.tae.roomrates.Injector;
 import com.tae.roomrates.R;
 
 import com.tae.roomrates.dagger2.component.DaggerPresenterComponent;
@@ -53,8 +54,7 @@ public class SearchFragment extends BaseFragment
     Presenter presenter;
     @Inject
     GoogleApiClient mGoogleApiClient;
-//    @Inject
-//    SearchInteractor interactor;
+
 
     public static SearchFragment newInstance() {
         return new SearchFragment();
@@ -65,12 +65,19 @@ public class SearchFragment extends BaseFragment
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate: ");
         // TODO refactor to Intector.class
-        DaggerPresenterComponent.builder()
-                .appComponent(App.getApp(getActivity().getApplicationContext()).getAppComponent())
-                .presenterModule(new PresenterModule(this))
-                .searchInteractorModule(new SearchInteractorModule())
-                .googleApiModule(new GoogleApiModule(this, this))
-                .build().inject(this);
+//        DaggerPresenterComponent.builder()
+//                .appComponent(App.getApp(getActivity().getApplicationContext()).getAppComponent())
+//                .presenterModule(new PresenterModule(this))
+//                .searchInteractorModule(new SearchInteractorModule(App.getApp(getActivity().getApplicationContext()).getNetWorkComponent().getRoomReviewService()))
+//                .googleApiModule(new GoogleApiModule(this, this))
+//                .build().inject(this);
+        Injector.injectPresenterComponent( // TODO make injector a singleton
+                App.getApp(getActivity().getApplicationContext()).getAppComponent(),
+                this,
+                App.getApp(getActivity().getApplicationContext()).getNetWorkComponent().getRoomReviewService(),
+                this,
+                this
+                ).inject(this);
     }
 
     @Override
@@ -97,7 +104,7 @@ public class SearchFragment extends BaseFragment
 
     @OnClick(R.id.tbn_search)
     public void onClick(View view) {
-        Log.i(TAG, "onClick: init search");
+        Log.i(TAG, "onClick: init search with query: " + presenter.getQuery());
         //TODO start search
         presenter.searchProperty(presenter.getQuery());
     }

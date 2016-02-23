@@ -19,8 +19,14 @@ public class SearchInteractorModule {
 
     private static final String TAG = SearchInteractorModule.class.getSimpleName();
 
+    private RoomReviewService service;
+
+    public SearchInteractorModule(RoomReviewService service) {
+        this.service = service;
+    }
+
     @Provides @FragmentScope
-    public SearchInteractor provideInteractor(RoomReviewService service) {
+    public SearchInteractor provideInteractor() {
         Log.i(TAG, "provideInteractor: ");
         return new SearchInteractor(service);
     }

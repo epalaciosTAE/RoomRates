@@ -15,13 +15,12 @@ import com.tae.roomrates.dagger2.component.module.SearchInteractorModule;
 
 /**
  * Created by Eduardo on 20/02/2016.
- * TODO Create graph object for networkmodule
- * TODO Create method to pass the networkComponent
  */
 public class App extends Application {
 
     private static final String TAG = App.class.getSimpleName();
     private AppComponent appComponent;
+    private NetWorkComponent netWorkComponent;
 
     public static App getApp(Context context) {
         return ((App) context.getApplicationContext());
@@ -30,19 +29,16 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        NetWorkComponent netWorkComponent = DaggerNetWorkComponent.builder()
-                .netWorkModule(new NetWorkModule())
-//                .searchInteractorModule(new SearchInteractorModule())
-                .build();
-
-        appComponent = DaggerAppComponent.builder()
-                .netWorkComponent(netWorkComponent)
-                .appModule(new AppModule(this))
-                .build();
+        netWorkComponent = Injector.injectNetworkComponent();
+        appComponent = Injector.injectAppComponent(this, netWorkComponent);
     }
 
     public AppComponent getAppComponent() {
         return appComponent;
+    }
+
+    public NetWorkComponent getNetWorkComponent() {
+        return netWorkComponent;
     }
 
 

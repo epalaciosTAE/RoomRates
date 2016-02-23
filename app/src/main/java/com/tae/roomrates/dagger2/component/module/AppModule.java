@@ -1,16 +1,10 @@
 package com.tae.roomrates.dagger2.component.module;
 
-import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
 import com.tae.roomrates.App;
-import com.tae.roomrates.Constants;
 import com.tae.roomrates.dagger2.component.scope.ApplicationScope;
-import com.tae.roomrates.dagger2.component.scope.FragmentScope;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;

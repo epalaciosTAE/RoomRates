@@ -1,9 +1,8 @@
 package com.tae.roomrates.model.api;
 
-import com.tae.roomrates.Constants;
+import com.tae.roomrates.constants.Constants;
 
 import retrofit.http.GET;
-import retrofit.http.Query;
 import rx.Observable;
 
 /**

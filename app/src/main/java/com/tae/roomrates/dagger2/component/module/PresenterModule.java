@@ -35,11 +35,16 @@ public class PresenterModule {
     }
 
     @Provides @FragmentScope
-    public PresenterImpl providePresenterImpl(ViewOps view) {
+    public PresenterImpl providePresenterImpl(ViewOps view, SearchInteractor interactor) {
         Log.i(TAG, "providePresenterImpl: ");
-        return new PresenterImpl(view);
+        return new PresenterImpl(view, interactor);
     }
 
+    /**
+     * This returns the Presenter interface
+     * @param presenterImpl
+     * @return
+     */
     @Provides @FragmentScope
     public Presenter providePresenter(PresenterImpl presenterImpl) {
         Log.i(TAG, "providePresenter: ");

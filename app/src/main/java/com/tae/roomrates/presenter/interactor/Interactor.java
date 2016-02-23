@@ -9,5 +9,5 @@ public interface Interactor {
 
     void updateLocation(LatLng latLng);
 
-    void getQueryFromSubscriber(String query);
+    void getQueryFromObserver(CharSequence query);
 }
