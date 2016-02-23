@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
-import com.tae.roomrates.Constants;
+import com.tae.roomrates.constants.Constants;
 import com.tae.roomrates.model.api.RoomReviewService;
 
 import javax.inject.Singleton;

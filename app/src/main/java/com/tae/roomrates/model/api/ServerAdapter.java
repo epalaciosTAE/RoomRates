@@ -2,7 +2,7 @@ package com.tae.roomrates.model.api;
 
 import com.google.gson.Gson;
 import com.squareup.okhttp.OkHttpClient;
-import com.tae.roomrates.Constants;
+import com.tae.roomrates.constants.Constants;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
